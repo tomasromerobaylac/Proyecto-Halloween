@@ -1,0 +1,52 @@
+1) ORDEN DE TABULACIÓN EN index.html (sin sesión)
+   Tab 1: <a> Saltar al contenido principal  [foco visible ✓]
+   Tab 2: <a> 🎃 La Web del Terror  [foco visible ✓]
+   Tab 3: <a> Iniciar sesión  [foco visible ✓]
+   Tab 4: <a> Registrarse  [foco visible ✓]
+   Tab 5: <button> Votar por Calabaza Gigante  [foco visible ✓]
+   Tab 6: <button> Votar por Vampiro Clásico  [foco visible ✓]
+   Tab 7: <button> Votar por Bruja del Bosque  [foco visible ✓]
+   axe-core (portada sin sesión): 0 violaciones WCAG 2.1 AA
+2) VOTAR SIN SESIÓN: Enter en "Saltar al contenido" y Tab -> <button> Votar por Calabaza Gigante  [foco visible ✓]
+   aria-live: "Tenés que iniciar sesión para votar. Usá el enlace "Iniciar sesión" del encabezado." (HTTP 401)
+   axe-core (portada con aviso de error): 0 violaciones WCAG 2.1 AA
+3) REGISTRO SOLO CON TECLADO
+   Shift+Tab: <a> Registrarse  [foco visible ✓] -> Enter
+   Tab hasta el botón: <button> Registrarse  [foco visible ✓] -> Enter con el formulario vacío
+   aria-live: "El campo "Nombre de usuario" es obligatorio."; foco en: <input> Nombre de usuario  [foco visible ✓]
+   axe-core (registro con error de validación): 0 violaciones WCAG 2.1 AA
+   Nombre + contraseña + Enter -> aria-live: "¡Registro exitoso! Ya podés iniciar sesión." (HTTP 201)
+4) LOGIN SOLO CON TECLADO
+   Tab x3: <input> Nombre de usuario  [foco visible ✓]
+   Contraseña errónea -> aria-live: "Usuario o contraseña incorrectos." (HTTP 401)
+   axe-core (login con error): 0 violaciones WCAG 2.1 AA
+   Contraseña correcta + Enter -> redirige a index.html
+5) VOTAR CON SESIÓN
+   Saltar contenido + Tab x2: <button> Votar por Vampiro Clásico  [foco visible ✓] -> Enter
+   aria-live: "Voto registrado para Vampiro Clásico. ¡Gracias por participar!"
+   Tras re-renderizar, el foco vuelve a: <button> Votar por Vampiro Clásico  [foco visible ✓]
+   axe-core (portada con sesión y voto): 0 violaciones WCAG 2.1 AA
+   Segundo voto -> aria-live: "Ya emitiste tu voto. Solo se permite un voto por usuario." (HTTP 409)
+6) SUBIR MI DISFRAZ (usuario registrado)
+   Tab hasta: <a> Subir mi disfraz  [foco visible ✓] -> Enter
+   Tab hasta: <input> Nombre del disfraz  [foco visible ✓]
+   Tab: <input> Foto del disfraz  [foco visible ✓]  (Enter/Espacio abre el selector de archivos del sistema)
+   axe-core (subir disfraz): 0 violaciones WCAG 2.1 AA
+   Tab: <button> Subir disfraz  [foco visible ✓] -> Enter
+   aria-live: "Disfraz "Momia del Desierto" cargado correctamente. Redirigiendo al inicio…" (HTTP 201)
+7) admin.html con un usuario común -> se muestra "Esta página es solo para el administrador"
+   axe-core (admin sin permiso): 0 violaciones WCAG 2.1 AA
+8) CERRAR SESIÓN: Tab hasta <button> Cerrar sesión  [foco visible ✓] -> Enter
+   aria-live: "Cerraste sesión correctamente."; foco pasa a: <a> Iniciar sesión  [foco visible ✓]
+9) ADMINISTRADOR (CRUD) SOLO CON TECLADO
+   Login admin. Tab hasta: <a> Administración  [foco visible ✓] -> Enter
+   axe-core (admin panel): 0 violaciones WCAG 2.1 AA
+   Tab hasta: <button> Editar Momia del Desierto  [foco visible ✓] -> Enter
+   Modo edición. Título: "Editar disfraz: Momia del Desierto"; foco en: <input> Nombre del disfraz  [foco visible ✓]
+   Guardar -> aria-live: "Disfraz "Momia Faraónica" actualizado." (Update)
+   El foco vuelve a: <button> Editar Momia Faraónica  [foco visible ✓]
+   axe-core (admin después de editar): 0 violaciones WCAG 2.1 AA
+   Tab: <button> Eliminar Momia Faraónica  [foco visible ✓] -> Enter
+   Diálogo de confirmación: "¿Eliminar el disfraz "Momia Faraónica"? Ya no se mostrará en la votación." -> Aceptar
+   aria-live: "Disfraz "Momia Faraónica" eliminado." (Delete, borrado lógico)
+   El foco pasa a: <h2> Disfraces cargados  [foco visible ✓]

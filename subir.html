@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Subí tu disfraz de Halloween con foto y descripción">
+    <title>Subir mi disfraz - Halloween</title>
+    <link rel="icon" href="img/calabaza.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="module" src="js/subir.js"></script>
+</head>
+<body class="pagina-form">
+    <a class="saltar-contenido" href="#contenido">Saltar al contenido principal</a>
+
+    <header class="encabezado">
+        <a class="marca" href="index.html"><span aria-hidden="true">🎃</span> La Web del Terror</a>
+        <nav class="nav-auth" aria-label="Cuenta de usuario">
+            <ul id="nav-cuenta">
+                <li><a href="login.html" class="btn btn-secundario">Iniciar sesión</a></li>
+                <li><a href="registro.html" class="btn btn-secundario">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+        <div class="form-box">
+            <h1>Subir mi disfraz <span aria-hidden="true">👻</span></h1>
+
+            <div class="zona-subir">
+            <!-- Se muestra si no hay sesión iniciada -->
+            <p id="sin-sesion" class="aviso-pagina" hidden>
+                Para subir tu disfraz tenés que <a href="login.html">iniciar sesión</a>.
+                Si no tenés cuenta, <a href="registro.html">registrate</a>.
+            </p>
+
+            <form id="form-disfraz" novalidate>
+                <div class="campo">
+                    <label for="nombre">Nombre del disfraz</label>
+                    <input type="text" id="nombre" name="nombre" maxlength="50" required aria-required="true">
+                </div>
+
+                <div class="campo">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" maxlength="500"
+                              required aria-required="true" aria-describedby="ayuda-descripcion"></textarea>
+                    <span id="ayuda-descripcion" class="ayuda">Hasta 500 caracteres.</span>
+                </div>
+
+                <div class="campo">
+                    <label for="foto">Foto del disfraz</label>
+                    <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/gif,image/webp"
+                           required aria-required="true" aria-describedby="ayuda-foto">
+                    <span id="ayuda-foto" class="ayuda">JPG, PNG, GIF o WEBP, hasta 800 KB.</span>
+                </div>
+
+                <button type="submit">Subir disfraz</button>
+
+                <!-- Región viva: el resultado del fetch() se inyecta con .textContent -->
+                <p id="mensaje-form" class="mensaje-form" role="status" aria-live="polite"></p>
+            </form>
+            </div>
+
+            <div class="enlaces-form">
+                <a href="index.html">Volver al inicio</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

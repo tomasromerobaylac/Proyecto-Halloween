@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Votación accesible de disfraces de Halloween">
+    <title>Votación de Disfraces de Halloween</title>
+    <link rel="icon" href="img/calabaza.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="module" src="js/index.js"></script>
+</head>
+<body>
+    <!-- Primer elemento enfocable: permite saltar la navegación con el teclado -->
+    <a class="saltar-contenido" href="#contenido">Saltar al contenido principal</a>
+
+    <header class="encabezado">
+        <a class="marca" href="index.html"><span aria-hidden="true">🎃</span> La Web del Terror</a>
+        <nav class="nav-auth" aria-label="Cuenta de usuario">
+            <ul id="nav-cuenta">
+                <!-- Estado por defecto (sin sesión). js/index.js lo actualiza consultando api/sesion.php -->
+                <li><a href="login.html" class="btn btn-secundario">Iniciar sesión</a></li>
+                <li><a href="registro.html" class="btn btn-secundario">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+        <h1><span aria-hidden="true">🎃</span> Votación de Disfraces de Halloween <span aria-hidden="true">🦇</span></h1>
+
+        <section aria-labelledby="titulo-podio">
+            <h2 id="titulo-podio"><span aria-hidden="true">🏆</span> Top 3 disfraces más votados</h2>
+            <ol id="contenedor-top" class="podio" aria-busy="true">
+                <li class="cargando">Cargando podio…</li>
+            </ol>
+        </section>
+
+        <hr class="separador">
+
+        <section aria-labelledby="titulo-listado">
+            <h2 id="titulo-listado"><span aria-hidden="true">📋</span> Listado general de disfraces</h2>
+            <ul id="contenedor-disfraces" class="lista-cards" aria-busy="true">
+                <li class="cargando">Cargando disfraces…</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Región viva: los resultados de los fetch() se anuncian aquí vía .textContent -->
+    <div id="aviso" class="aviso" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

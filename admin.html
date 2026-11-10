@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Administración de disfraces de Halloween">
+    <title>Administración - Halloween</title>
+    <link rel="icon" href="img/calabaza.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="module" src="js/admin.js"></script>
+</head>
+<body>
+    <a class="saltar-contenido" href="#contenido">Saltar al contenido principal</a>
+
+    <header class="encabezado">
+        <a class="marca" href="index.html"><span aria-hidden="true">🎃</span> La Web del Terror</a>
+        <nav class="nav-auth" aria-label="Cuenta de usuario">
+            <ul id="nav-cuenta">
+                <li><a href="login.html" class="btn btn-secundario">Iniciar sesión</a></li>
+                <li><a href="registro.html" class="btn btn-secundario">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="contenido" tabindex="-1" class="admin">
+        <h1>Administración de disfraces <span aria-hidden="true">🕸️</span></h1>
+
+        <!-- Se muestra si el usuario no es el administrador -->
+        <p id="sin-permiso" class="aviso-pagina" hidden>
+            Esta página es solo para el administrador.
+            <a href="login.html">Iniciá sesión con la cuenta de administrador</a> o
+            <a href="index.html">volvé al inicio</a>.
+        </p>
+
+        <div id="panel" hidden>
+            <section class="form-box form-admin" aria-labelledby="titulo-form">
+                <h2 id="titulo-form" tabindex="-1">Agregar disfraz</h2>
+
+                <form id="form-disfraz" novalidate>
+                    <div class="campo">
+                        <label for="nombre">Nombre del disfraz</label>
+                        <input type="text" id="nombre" name="nombre" maxlength="50" required aria-required="true">
+                    </div>
+
+                    <div class="campo">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="3" maxlength="500"
+                                  required aria-required="true"></textarea>
+                    </div>
+
+                    <div class="campo">
+                        <label for="foto">Foto del disfraz</label>
+                        <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/gif,image/webp"
+                               required aria-required="true" aria-describedby="ayuda-foto">
+                        <span id="ayuda-foto" class="ayuda">JPG, PNG, GIF o WEBP, hasta 800 KB.</span>
+                    </div>
+
+                    <div class="acciones-form">
+                        <button type="submit" id="btn-guardar">Agregar disfraz</button>
+                        <button type="button" id="btn-cancelar" class="btn-secundario" hidden>Cancelar edición</button>
+                    </div>
+                </form>
+            </section>
+
+            <section aria-labelledby="titulo-tabla">
+                <h2 id="titulo-tabla" tabindex="-1">Disfraces cargados</h2>
+                <div class="tabla-scroll">
+                    <table class="tabla-admin">
+                        <caption class="sr-only">Lista de disfraces con sus votos y acciones disponibles</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Votos</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-disfraces"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Región viva: los resultados de los fetch() se anuncian aquí vía .textContent -->
+    <div id="aviso" class="aviso" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

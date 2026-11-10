@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Iniciar sesión para votar disfraces de Halloween">
+    <title>Iniciar sesión - Halloween</title>
+    <link rel="icon" href="img/calabaza.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="module" src="js/auth.js"></script>
+</head>
+<body class="pagina-form">
+    <a class="saltar-contenido" href="#contenido">Saltar al formulario</a>
+
+    <header class="encabezado">
+        <a class="marca" href="index.html"><span aria-hidden="true">🎃</span> La Web del Terror</a>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+        <div class="form-box">
+            <h1>Iniciar sesión <span aria-hidden="true">🦇</span></h1>
+
+            <form id="form-auth" data-endpoint="api/login.php" data-destino="index.html" novalidate>
+                <div class="campo">
+                    <label for="nombre">Nombre de usuario</label>
+                    <input type="text" id="nombre" name="nombre" autocomplete="username" required aria-required="true">
+                </div>
+
+                <div class="campo">
+                    <label for="clave">Contraseña</label>
+                    <input type="password" id="clave" name="clave" autocomplete="current-password" required aria-required="true">
+                </div>
+
+                <button type="submit">Entrar</button>
+
+                <!-- Región viva: el resultado del fetch() se inyecta con .textContent -->
+                <p id="mensaje-form" class="mensaje-form" role="status" aria-live="polite"></p>
+            </form>
+
+            <div class="enlaces-form">
+                <a href="registro.html">¿No tenés cuenta? Registrate</a>
+                <a href="index.html">Volver al inicio</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
