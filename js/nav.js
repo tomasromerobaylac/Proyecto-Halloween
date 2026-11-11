@@ -4,9 +4,35 @@
  */
 import { pedirApi, crear } from './api.js';
 
+const CLAVE = 'halloween_sesion';
+const SIN_SESION = { autenticado: false, usuario: null, es_admin: false, voto_por: null };
+
+/**
+ * Última sesión conocida, guardada en el navegador.
+ * Sirve solo para dibujar el menú correcto apenas carga la página (sin saltos de diseño).
+ * No da ningún permiso: la API vuelve a verificar la sesión en cada pedido.
+ */
+export function sesionGuardada() {
+    try {
+        return JSON.parse(localStorage.getItem(CLAVE)) || SIN_SESION;
+    } catch {
+        return SIN_SESION;
+    }
+}
+
+export function guardarSesion(sesion) {
+    try {
+        localStorage.setItem(CLAVE, JSON.stringify({
+            autenticado: sesion.autenticado, usuario: sesion.usuario, es_admin: sesion.es_admin,
+        }));
+    } catch { /* sin almacenamiento disponible: no pasa nada */ }
+}
+
 export async function obtenerSesion() {
     const r = await pedirApi('api/sesion.php');
-    return r.ok ? r.datos : { autenticado: false, usuario: null, es_admin: false, voto_por: null };
+    const sesion = r.ok ? r.datos : SIN_SESION;
+    guardarSesion(sesion);
+    return sesion;
 }
 
 function enlace(href, texto, actual) {
@@ -41,7 +67,10 @@ export function renderNav(sesion, alCerrarSesion) {
     const salir = crear('button', { clase: 'btn btn-secundario', texto: 'Cerrar sesión', attrs: { type: 'button' } });
     salir.addEventListener('click', async () => {
         const r = await pedirApi('api/logout.php', { metodo: 'POST' });
-        if (r.ok) alCerrarSesion();
+        if (r.ok) {
+            guardarSesion(SIN_SESION);
+            alCerrarSesion();
+        }
     });
     li.append(salir);
     nav.append(li);

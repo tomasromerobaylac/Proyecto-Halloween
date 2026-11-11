@@ -4,6 +4,7 @@
  */
 import { pedirApi, anunciar } from './api.js';
 import { validar } from './formulario.js';
+import { guardarSesion } from './nav.js';
 
 const form = document.getElementById('form-auth');
 const mensaje = document.getElementById('mensaje-form');
@@ -21,6 +22,7 @@ form.addEventListener('submit', async (e) => {
     boton.disabled = false;
 
     if (r.ok) {
+        if (r.datos.usuario) guardarSesion({ autenticado: true, usuario: r.datos.usuario, es_admin: r.datos.es_admin });
         const texto = r.datos.mensaje || `¡Bienvenido, ${r.datos.usuario}! Redirigiendo…`;
         anunciar(mensaje, texto, 'ok');
         setTimeout(() => { window.location.href = form.dataset.destino; }, 1500);

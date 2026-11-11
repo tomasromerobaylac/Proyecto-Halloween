@@ -7,7 +7,7 @@
  * La API vuelve a verificar que el usuario sea administrador (403 si no lo es).
  */
 import { pedirApi, anunciar, crear } from './api.js';
-import { obtenerSesion, renderNav } from './nav.js';
+import { obtenerSesion, renderNav, sesionGuardada } from './nav.js';
 import { validar } from './formulario.js';
 
 const panel = document.getElementById('panel');
@@ -151,8 +151,10 @@ async function borrar(d) {
 
 /* ---------- Inicio ---------- */
 async function iniciar() {
+    const alSalir = () => { window.location.href = 'index.html'; };
+    renderNav(sesionGuardada(), alSalir); // menú inmediato, sin esperar al servidor
     const sesion = await obtenerSesion();
-    renderNav(sesion, () => { window.location.href = 'index.html'; });
+    renderNav(sesion, alSalir);
 
     if (!sesion.es_admin) {
         sinPermiso.hidden = false; // "Esta página es solo para el administrador"

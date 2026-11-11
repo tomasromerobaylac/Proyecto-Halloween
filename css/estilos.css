@@ -94,6 +94,15 @@ body {
 }
 .saludo { color: var(--texto-suave); }
 
+/* El encabezado mide lo mismo con o sin sesión: el menú no empuja la página al cargar (CLS) */
+@media (max-width: 960px) {
+    .nav-auth { flex-basis: 100%; }
+}
+@media (max-width: 760px) {
+    .encabezado { padding: 1rem; }
+    .nav-auth ul { min-height: 6.25rem; align-content: flex-start; }
+}
+
 /* ---------- Botones y enlaces-botón ---------- */
 .btn,
 button {

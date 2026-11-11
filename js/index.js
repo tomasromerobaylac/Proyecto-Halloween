@@ -3,7 +3,7 @@
  * El DOM se construye con createElement + textContent (sin innerHTML).
  */
 import { pedirApi, anunciar, crear } from './api.js';
-import { obtenerSesion, renderNav } from './nav.js';
+import { obtenerSesion, renderNav, sesionGuardada } from './nav.js';
 
 const contenedorTop = document.getElementById('contenedor-top');
 const contenedorDisfraces = document.getElementById('contenedor-disfraces');
@@ -116,6 +116,7 @@ async function votar(disfrazId, nombre) {
 
 /* ---------- Inicio ---------- */
 async function iniciar() {
+    renderNav(sesionGuardada(), alCerrarSesion); // menú inmediato, sin esperar al servidor
     sesion = await obtenerSesion();
     renderNav(sesion, alCerrarSesion);
     await cargarDisfraces();

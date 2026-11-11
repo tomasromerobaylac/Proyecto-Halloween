@@ -3,7 +3,7 @@
  * El formulario se envía como FormData (multipart/form-data) a POST api/disfraces.php.
  */
 import { pedirApi, anunciar } from './api.js';
-import { obtenerSesion, renderNav } from './nav.js';
+import { obtenerSesion, renderNav, sesionGuardada } from './nav.js';
 import { validar } from './formulario.js';
 
 const form = document.getElementById('form-disfraz');
@@ -17,8 +17,11 @@ function mostrarSegunSesion(sesion) {
 }
 
 async function iniciar() {
+    const alSalir = () => { window.location.href = 'index.html'; };
+    renderNav(sesionGuardada(), alSalir); // menú inmediato, sin esperar al servidor
+    mostrarSegunSesion(sesionGuardada());
     const sesion = await obtenerSesion();
-    renderNav(sesion, () => { window.location.href = 'index.html'; });
+    renderNav(sesion, alSalir);
     mostrarSegunSesion(sesion);
 }
 
